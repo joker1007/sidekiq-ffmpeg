@@ -1,20 +1,16 @@
 # Sidekiq::Ffmpeg
 
-TODO: Write a gem description
+Sidekiq job definition for ffmpeg.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'sidekiq-ffmpeg'
+    gem 'sidekiq-ffmpeg', github: "joker1007/sidekiq-ffmpeg"
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install sidekiq-ffmpeg
 
 ## Usage
 
