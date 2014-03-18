@@ -16,12 +16,19 @@ describe Sidekiq::Ffmpeg do
 
       describe "on_progress callback" do
         before do
-          encoder.on_progress = Proc.new {|progress| true }
+          encoder.on_progress = Proc.new {|progress| p progress }
         end
 
         it "on_progress receive call" do
-          expect(encoder.on_progress).to receive(:call).with(an_instance_of(Float)).at_least(:once)
+          expect(encoder.on_progress).to receive(:call).with(an_instance_of(Float)).at_least(:once).and_call_original
           encoder.do_encode("#{sample_dir}/sample.mp4", "#{sample_dir}/output.mp4")
+        end
+
+        describe "shellescape" do
+          it "on_progress receive call" do
+            expect(encoder.on_progress).to receive(:call).with(an_instance_of(Float)).at_least(:once).and_call_original
+            encoder.do_encode("#{sample_dir}/hoge's title.mp4", "#{sample_dir}/output.mp4")
+          end
         end
       end
 
