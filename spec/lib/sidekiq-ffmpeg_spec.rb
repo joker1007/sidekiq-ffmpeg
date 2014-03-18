@@ -20,7 +20,7 @@ describe Sidekiq::Ffmpeg do
         end
 
         it "on_progress receive call" do
-          encoder.on_progress.should_receive(:call).with(an_instance_of(Float)).at_least(:once)
+          expect(encoder.on_progress).to receive(:call).with(an_instance_of(Float)).at_least(:once)
           encoder.do_encode("#{sample_dir}/sample.mp4", "#{sample_dir}/output.mp4")
         end
       end
@@ -31,7 +31,7 @@ describe Sidekiq::Ffmpeg do
         end
 
         it "on_complete receive call" do
-          encoder.on_complete.should_receive(:call).with(encoder).once
+          expect(encoder.on_complete).to receive(:call).with(encoder).once
           encoder.do_encode("#{sample_dir}/sample.mp4", "#{sample_dir}/output.mp4")
         end
       end
@@ -39,7 +39,7 @@ describe Sidekiq::Ffmpeg do
       describe "debug log" do
         before do
           ENV["DEBUG"] = "1"
-          Sidekiq::Ffmpeg.logger.should be_a(Logger)
+          expect(Sidekiq::Ffmpeg.logger).to be_a(Logger)
         end
 
         after do
@@ -47,7 +47,7 @@ describe Sidekiq::Ffmpeg do
         end
 
         it "should call logger.debug" do
-          Sidekiq::Ffmpeg.logger.should_receive(:debug)
+          expect(Sidekiq::Ffmpeg.logger).to receive(:debug)
           encoder.do_encode("#{sample_dir}/sample.mp4", "#{sample_dir}/output.mp4")
         end
       end
@@ -62,7 +62,7 @@ describe Sidekiq::Ffmpeg do
         end
 
         it "on_progress receive call" do
-          encoder.on_progress.should_receive(:call).with(an_instance_of(Float)).at_least(:once)
+          expect(encoder.on_progress).to receive(:call).with(an_instance_of(Float)).at_least(:once)
           encoder.do_encode("#{sample_dir}/sample.mp4", "#{sample_dir}/output.webm")
         end
       end
@@ -73,7 +73,7 @@ describe Sidekiq::Ffmpeg do
         end
 
         it "on_complete receive call" do
-          encoder.on_complete.should_receive(:call).with(encoder).once
+          expect(encoder.on_complete).to receive(:call).with(encoder).once
           encoder.do_encode("#{sample_dir}/sample.mp4", "#{sample_dir}/output.webm")
         end
       end
@@ -89,16 +89,16 @@ describe Sidekiq::Ffmpeg::BaseJob do
     it "should receive do_encode" do
       input_filename = "#{sample_dir}/sample.mp4"
       output_filename = "#{sample_dir}/output.mp4"
-      Sidekiq::Ffmpeg::Encoder::MP4.any_instance.should_receive(:do_encode).with(input_filename, output_filename).once
+      expect_any_instance_of(Sidekiq::Ffmpeg::Encoder::MP4).to receive(:do_encode).with(input_filename, output_filename).once
       TestJob.perform_async(input_filename, output_filename)
       TestJob.drain
     end
   end
 
   context "Job class has on_progress method" do
-    class ::ProgressJob < Sidekiq::Ffmpeg::BaseJob
+    class ProgressJob < Sidekiq::Ffmpeg::BaseJob
 
-      def self.on_progress(progress, extra_data = {})
+      def on_progress(progress, extra_data = {})
         true
       end
     end
@@ -106,16 +106,16 @@ describe Sidekiq::Ffmpeg::BaseJob do
     it "should receive on_progress" do
       input_filename = "#{sample_dir}/sample.mp4"
       output_filename = "#{sample_dir}/output.mp4"
-      ::ProgressJob.should_receive(:on_progress).with(an_instance_of(Float), {}).at_least(:once)
+      expect_any_instance_of(ProgressJob).to receive(:on_progress).with(an_instance_of(Float), {}).at_least(:once)
       ProgressJob.perform_async(input_filename, output_filename)
       ProgressJob.drain
     end
   end
 
   context "Job class has on_complete method" do
-    class ::CompleteJob < Sidekiq::Ffmpeg::BaseJob
+    class CompleteJob < Sidekiq::Ffmpeg::BaseJob
 
-      def self.on_complete(encoder, extra_data = {})
+      def on_complete(encoder, extra_data = {})
         true
       end
     end
@@ -123,7 +123,7 @@ describe Sidekiq::Ffmpeg::BaseJob do
     it "should receive on_complete" do
       input_filename = "#{sample_dir}/sample.mp4"
       output_filename = "#{sample_dir}/output.mp4"
-      ::CompleteJob.should_receive(:on_complete).with(an_instance_of(Sidekiq::Ffmpeg::Encoder::MP4), {}).once
+      expect_any_instance_of(CompleteJob).to receive(:on_complete).with(an_instance_of(Sidekiq::Ffmpeg::Encoder::MP4), {}).once
       CompleteJob.perform_async(input_filename, output_filename)
       CompleteJob.drain
     end

@@ -1,6 +1,8 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'sidekiq/ffmpeg'
 
+require 'tapp'
+
 $spec_dir = File.dirname(File.expand_path(__FILE__))
 
 RSpec.configure do |config|
