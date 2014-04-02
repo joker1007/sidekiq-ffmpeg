@@ -14,7 +14,25 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class EncodeJob < Sidekiq::Ffmpeg::BaseJob
+
+  def on_progress(progress, extra_data = {})
+    p progress
+  end
+
+  def on_complete(encoder, extra_data = {})
+    puts "complete"
+  end
+end
+
+EncodeJob.perform_async(input_filename, output_filename, extra_data, :mp4)
+```
+
+Implemented Encoder class is following:
+
+- mp4
+- WebM
 
 ## Contributing
 
