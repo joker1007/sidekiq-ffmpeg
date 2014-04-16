@@ -1,4 +1,5 @@
 # Sidekiq::Ffmpeg
+[![Gem Version](https://badge.fury.io/rb/sidekiq-ffmpeg.svg)](http://badge.fury.io/rb/sidekiq-ffmpeg)
 [![Build Status](https://travis-ci.org/joker1007/sidekiq-ffmpeg.svg?branch=master)](https://travis-ci.org/joker1007/sidekiq-ffmpeg)
 [![Coverage Status](https://coveralls.io/repos/joker1007/sidekiq-ffmpeg/badge.png)](https://coveralls.io/r/joker1007/sidekiq-ffmpeg)
 

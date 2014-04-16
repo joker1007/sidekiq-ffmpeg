@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kakyoin.hierophant@gmail.com"]
   spec.description   = %q{easier way to use ffmpeg in sidekiq}
   spec.summary       = %q{easier way to use ffmpeg in sidekiq}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/joker1007/sidekiq-ffmpeg"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
