@@ -53,7 +53,7 @@ module Sidekiq
         def do_encode(input, output)
           @input_filename = input
           @output_filename = output
-          cmd = %W(ffmpeg -y -i #{@input_filename} -f #{format} -s #{size} -aspect #{aspect(@input_filename)} -vcodec #{vcodec} -b:v #{video_bitrate} -acodec #{acodec} -ar #{audio_sample_rate} -b:a #{audio_bitrate})
+          cmd = %W(#{Ffmpeg.ffmpeg_cmd} -y -i #{@input_filename} -f #{format} -s #{size} -aspect #{aspect(@input_filename)} -vcodec #{vcodec} -b:v #{video_bitrate} -acodec #{acodec} -ar #{audio_sample_rate} -b:a #{audio_bitrate})
           cmd.concat(other_options.split(" "))
           cmd.reject!(&:empty?)
           cmd << @output_filename
