@@ -1,4 +1,6 @@
 # Sidekiq::Ffmpeg
+[![Build Status](https://travis-ci.org/joker1007/sidekiq-ffmpeg.svg?branch=master)](https://travis-ci.org/joker1007/sidekiq-ffmpeg)
+[![Coverage Status](https://coveralls.io/repos/joker1007/sidekiq-ffmpeg/badge.png)](https://coveralls.io/r/joker1007/sidekiq-ffmpeg)
 
 Sidekiq job definition for ffmpeg.
 
